@@ -1,8 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "9OFA6ab0D8g=",
+  "dgSpecHash": "P1F+XkzTHI0=",
   "success": true,
   "projectFilePath": "C:\\Users\\hardc\\source\\repos\\Habit.Tracker\\Habit.Tracker\\Habit.Tracker.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\hardc\\.nuget\\packages\\microsoft.data.sqlite\\10.0.2\\microsoft.data.sqlite.10.0.2.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\microsoft.data.sqlite.core\\10.0.2\\microsoft.data.sqlite.core.10.0.2.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\sqlitepclraw.bundle_e_sqlite3\\2.1.11\\sqlitepclraw.bundle_e_sqlite3.2.1.11.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\sqlitepclraw.core\\2.1.11\\sqlitepclraw.core.2.1.11.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\sqlitepclraw.lib.e_sqlite3\\2.1.11\\sqlitepclraw.lib.e_sqlite3.2.1.11.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\sqlitepclraw.provider.e_sqlite3\\2.1.11\\sqlitepclraw.provider.e_sqlite3.2.1.11.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\system.configuration.configurationmanager\\10.0.2\\system.configuration.configurationmanager.10.0.2.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\system.diagnostics.eventlog\\10.0.2\\system.diagnostics.eventlog.10.0.2.nupkg.sha512",
+    "C:\\Users\\hardc\\.nuget\\packages\\system.security.cryptography.protecteddata\\10.0.2\\system.security.cryptography.protecteddata.10.0.2.nupkg.sha512"
+  ],
   "logs": []
 }
