@@ -15,11 +15,11 @@ namespace Habit.Tracker
         {
             _connectionString = ConfigurationManager.ConnectionStrings[dbName].ConnectionString;
         }
-        
+
         public void TestConnection()
         {
             try
-            { 
+            {
                 var con = new SqliteConnection(_connectionString);
                 con.Open();
                 con.Close();
@@ -27,10 +27,35 @@ namespace Habit.Tracker
                 Console.WriteLine("Connection successful.");
             }
             catch (Exception ex)
-            {                
-                Console.WriteLine("Connection failed: " + ex.Message); 
+            {
+                Console.WriteLine("Connection failed: " + ex.Message);
             }
         }
 
+        public void CreateTable()
+        {
+            string sql = "CREATE TABLE IF NOT EXISTS Habits (" +
+                         "Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                         "Name TEXT NOT NULL, " +
+                         "Occurrence INTEGER NOT NULL)";
+
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open();
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                Console.WriteLine("Habit Tracker created.");
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error creating table: " + ex.Message);
+            }
+        }
     }
 }
