@@ -472,23 +472,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\hardc\\.nuget\\packages\\": {},
+    "C:\\Users\\Lewis.Hardcastle\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hardc\\source\\repos\\Habit.Tracker\\Habit.Tracker\\Habit.Tracker.csproj",
+      "projectUniqueName": "C:\\Users\\Lewis.Hardcastle\\source\\repos\\Habit.Tracker\\Habit.Tracker\\Habit.Tracker.csproj",
       "projectName": "Habit.Tracker",
-      "projectPath": "C:\\Users\\hardc\\source\\repos\\Habit.Tracker\\Habit.Tracker\\Habit.Tracker.csproj",
-      "packagesPath": "C:\\Users\\hardc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hardc\\source\\repos\\Habit.Tracker\\Habit.Tracker\\obj\\",
+      "projectPath": "C:\\Users\\Lewis.Hardcastle\\source\\repos\\Habit.Tracker\\Habit.Tracker\\Habit.Tracker.csproj",
+      "packagesPath": "C:\\Users\\Lewis.Hardcastle\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lewis.Hardcastle\\source\\repos\\Habit.Tracker\\Habit.Tracker\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\hardc\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lewis.Hardcastle\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -547,7 +547,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

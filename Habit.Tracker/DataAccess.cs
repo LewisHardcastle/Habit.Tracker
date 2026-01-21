@@ -57,5 +57,28 @@ namespace Habit.Tracker
                 Console.WriteLine("Error creating table: " + ex.Message);
             }
         }
+
+        public void InsertHabit(HabitModel habit)
+        {
+            string sql = "INSERT INTO Habits (Name, Occurrence) VALUES (@Name, @Occurrence)";
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open();
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", habit.Name);
+                        cmd.Parameters.AddWithValue("@Occurrence", habit.Occurrence);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                Console.WriteLine($"{habit.Name} inserted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error inserting habit: " + ex.Message);
+            }
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Habit.Tracker
 {
-    internal class Habit
+    internal class HabitModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
