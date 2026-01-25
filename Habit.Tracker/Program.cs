@@ -1,4 +1,5 @@
 ﻿using Habit.Tracker;
+using System.Configuration;
 
 var db = new DataAccess("Sample");
 
@@ -6,55 +7,71 @@ db.TestConnection();
 
 db.CreateTable();
 
-Console.WriteLine("Welcome to Habit Tracker!");
-Console.WriteLine("Choose from the options below");
-Console.WriteLine("C - Add a record of a habit");
-Console.WriteLine("R - List All habits");
-Console.WriteLine("U - Update a habits occurrences");
-Console.WriteLine("D - Delete a habit");
+bool userIsActive = true;
 
-string userInput = Console.ReadLine();
-
-switch(userInput.ToUpper())
+while(userIsActive)
 {
-    case "C":
-        Console.WriteLine("Enter the habit name");
-        string habitName = Console.ReadLine();
-        Console.WriteLine("Enter how many times you have completed the habit");
-        string habitOccurrence = Console.ReadLine();
-        
-        while(!habitOccurrence.All(char.IsAsciiDigit))
-        {
-            Console.WriteLine("Please only insert a number");
-            habitOccurrence = Console.ReadLine();
-        }
+    Console.WriteLine("Welcome to Habit Tracker!");
+    Console.WriteLine("Choose from the options below");
+    Console.WriteLine("C - Add a record of a habit");
+    Console.WriteLine("R - List All habits");
+    Console.WriteLine("U - Update a habits occurrences");
+    Console.WriteLine("D - Delete a habit");
 
-        int habitOccurrenceNum;
-        Int32.TryParse(habitOccurrence, out habitOccurrenceNum);
-        
+    string userInput = Console.ReadLine();
 
-        HabitModel newHabit = new HabitModel
-        {
-            Name = habitName,
-            Occurrence = habitOccurrenceNum
-        };
+    switch (userInput.ToUpper())
+    {
+        case "C":
+            Console.WriteLine("Enter the habit name");
+            string habitName = Console.ReadLine();
+            Console.WriteLine("Enter how many times you have completed the habit");
+            string habitOccurrence = Console.ReadLine();
 
-        db.InsertHabit(newHabit);
+            while (!habitOccurrence.All(char.IsAsciiDigit))
+            {
+                Console.WriteLine("Please only insert a number");
+                habitOccurrence = Console.ReadLine();
+            }
 
-        break;
-    case "R":
-        // List all habits
-        break;
-    case "U":
-        // Update occurrence
-        break;
-    case "D":
-        // Delete habit
-        break;
-    default:
-        //
-        break;
+            int habitOccurrenceNum;
+            Int32.TryParse(habitOccurrence, out habitOccurrenceNum);
+
+            HabitModel newHabit = new HabitModel
+            {
+                Name = habitName,
+                Occurrence = habitOccurrenceNum
+            };
+
+            db.InsertHabit(newHabit);
+
+            break;
+        case "R":
+            var habits = db.ListAllHabits();
+
+            foreach (HabitModel habit in habits)
+            {
+                Console.WriteLine($"{habit.Name} has been done {habit.Occurrence} times");
+            }
+            break;
+        case "U":
+            // Update occurrence
+            break;
+        case "D":
+            // Delete habit
+            break;
+        default:
+            //
+            break;
+    }
+
+    Console.WriteLine("press Y to continue using the habit tracker or N to exit");
+    string checkUserIsActive = Console.ReadLine().ToUpper();
+    if (checkUserIsActive == "Y")
+    {
+        userIsActive = true;
+    } else
+    {
+        System.Environment.Exit(0);
+    }
 }
-
-
-Console.ReadKey();
