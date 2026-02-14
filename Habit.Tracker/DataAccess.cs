@@ -115,5 +115,30 @@ namespace Habit.Tracker
 
             return habits;
         }
+
+        public HabitModel UpdateHabitOccurrence(string habitName, int habitNumber)
+        {
+            string sql = "UPDATE Habits SET Name = @name, Occurrence = @occurrence WHERE id = @id";
+
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open();
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@name", habitName);
+                        cmd.Parameters.AddWithValue("@Occurrence", habitNumber);
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            return habit;
+        }
     }
 }

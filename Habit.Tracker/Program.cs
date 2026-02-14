@@ -56,6 +56,22 @@ while(userIsActive)
             break;
         case "U":
             // Update occurrence
+            Console.WriteLine("Enter the habit name you want to update");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter the the number of times you have now completed the habit");
+            string number = Console.ReadLine();
+
+            while (!number.All(char.IsAsciiDigit))
+            {
+                Console.WriteLine("Please only insert a number");
+                number = Console.ReadLine();
+            }
+
+            int numberOut;
+            Int32.TryParse(number, out numberOut);
+
+            db.UpdateHabitOccurrence(name, numberOut);
+
             break;
         case "D":
             // Delete habit
