@@ -116,9 +116,35 @@ namespace Habit.Tracker
             return habits;
         }
 
-        public HabitModel UpdateHabitOccurrence(string habitName, int habitNumber)
+        public void UpdateHabitOccurrence(string habitName, int newHabitOccurenceNumber)
         {
-            string sql = "UPDATE Habits SET Name = @name, Occurrence = @occurrence WHERE id = @id";
+            string sql = "UPDATE Habits SET Occurrence = @Occurrence WHERE LOWER(name) = LOWER(@Name)";
+
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open(); 
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", habitName);
+                        cmd.Parameters.AddWithValue("@Occurrence", newHabitOccurenceNumber);
+                        cmd.ExecuteNonQuery();
+                    }
+                    Console.WriteLine($"{habitName} has been updated");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+ 
+        }
+
+        public void DeleteHabit(string habitName)
+        {
+            string sql = "DELETE FROM Habits WHERE LOWER(name) = LOWER(@Name)";
 
             try
             {
@@ -127,18 +153,16 @@ namespace Habit.Tracker
                     con.Open();
                     using (var cmd = new SqliteCommand(sql, con))
                     {
-                        cmd.Parameters.AddWithValue("@name", habitName);
-                        cmd.Parameters.AddWithValue("@Occurrence", habitNumber);
+                        cmd.Parameters.AddWithValue("@Name", habitName);
+                        cmd.ExecuteNonQuery();
                     }
-                    
+                    Console.WriteLine($"{habitName} has been deleted");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-
-            return habit;
         }
     }
 }
