@@ -4,6 +4,7 @@ using System.Text;
 using System.Configuration;
 using Microsoft.Data.Sqlite;
 using System.Linq.Expressions;
+using System.Diagnostics;
 
 namespace Habit.Tracker
 {
@@ -55,6 +56,113 @@ namespace Habit.Tracker
             catch (Exception ex)
             {
                 Console.WriteLine("Error creating table: " + ex.Message);
+            }
+        }
+
+        public void InsertHabit(HabitModel habit)
+        {
+            string sql = "INSERT INTO Habits (Name, Occurrence) VALUES (@Name, @Occurrence)";
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open();
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", habit.Name);
+                        cmd.Parameters.AddWithValue("@Occurrence", habit.Occurrence);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                Console.WriteLine($"{habit.Name} inserted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error inserting habit: " + ex.Message);
+            }
+        }
+
+        public List<HabitModel> ListAllHabits()
+        {
+            string sql = "SELECT * FROM Habits";
+            var habits = new List<HabitModel>();
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open();
+                    using (var cmd = new SqliteCommand(sql, con))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var habit = new HabitModel
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                Occurrence = reader.GetInt32(reader.GetOrdinal("Occurrence"))
+                            };
+
+                            habits.Add(habit);
+                        }
+                    }
+                }
+            } 
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            return habits;
+        }
+
+        // Laeve a message for when user inputs a habit that does not exist
+        public void UpdateHabitOccurrence(string habitName, int newHabitOccurenceNumber)
+        {
+            string sql = "UPDATE Habits SET Occurrence = @Occurrence WHERE LOWER(name) = LOWER(@Name)";
+
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open(); 
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", habitName);
+                        cmd.Parameters.AddWithValue("@Occurrence", newHabitOccurenceNumber);
+                        cmd.ExecuteNonQuery();
+                    }
+                    Console.WriteLine($"{habitName} has been updated");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+ 
+        }
+
+        public void DeleteHabit(string habitName)
+        {
+            string sql = "DELETE FROM Habits WHERE LOWER(name) = LOWER(@Name)";
+
+            try
+            {
+                using (var con = new SqliteConnection(_connectionString))
+                {
+                    con.Open();
+                    using (var cmd = new SqliteCommand(sql, con))
+                    {
+                        cmd.Parameters.AddWithValue("@Name", habitName);
+                        cmd.ExecuteNonQuery();
+                    }
+                    Console.WriteLine($"{habitName} has been deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
             }
         }
     }
