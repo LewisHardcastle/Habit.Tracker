@@ -116,6 +116,7 @@ namespace Habit.Tracker
             return habits;
         }
 
+        // Laeve a message for when user inputs a habit that does not exist
         public void UpdateHabitOccurrence(string habitName, int newHabitOccurenceNumber)
         {
             string sql = "UPDATE Habits SET Occurrence = @Occurrence WHERE LOWER(name) = LOWER(@Name)";

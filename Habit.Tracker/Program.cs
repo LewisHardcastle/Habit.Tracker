@@ -75,6 +75,9 @@ while(userIsActive)
             break;
         case "D":
             // Delete habit
+            Console.WriteLine("Which habit would you like to delete?");
+            string habitToDelete = Console.ReadLine();
+            db.DeleteHabit(habitToDelete);
             break;
         default:
             //
