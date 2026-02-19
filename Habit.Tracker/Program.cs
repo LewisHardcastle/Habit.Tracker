@@ -1,5 +1,7 @@
 ﻿using Habit.Tracker;
 using System.Configuration;
+using System.Globalization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var db = new DataAccess("Sample");
 
@@ -37,10 +39,30 @@ while(userIsActive)
             int habitOccurrenceNum;
             Int32.TryParse(habitOccurrence, out habitOccurrenceNum);
 
+            DateTime habitOccurrenceDate;
+
+            while (true)
+            {
+                Console.WriteLine("Enter a date (dd/mm/yyyy): ");
+                string input = Console.ReadLine();
+
+                if (DateTime.TryParseExact(input, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out habitOccurrenceDate))
+                {
+                    Console.WriteLine($"Valid date: {habitOccurrenceDate:dd MMMM yyyy}");
+                    break;
+                }
+
+                Console.WriteLine("Invalid date. Please try again.");
+            }
+
             HabitModel newHabit = new HabitModel
             {
                 Name = habitName,
-                Occurrence = habitOccurrenceNum
+                Occurrence = new Occurrence
+                {
+                    Date = habitOccurrenceDate,
+                    Number = habitOccurrenceNum
+                }
             };
 
             db.InsertHabit(newHabit);
@@ -51,7 +73,7 @@ while(userIsActive)
 
             foreach (HabitModel habit in habits)
             {
-                Console.WriteLine($"{habit.Name} has been done {habit.Occurrence} times");
+                Console.WriteLine($"{habit.Name} has been done {habit.Occurrence.Number} times");
             }
             break;
         case "U":
