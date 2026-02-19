@@ -8,6 +8,13 @@ namespace Habit.Tracker
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Occurrence { get; set; }
+        public Occurrence Occurrence { get; set; }
+        
     }
+    public class Occurrence
+    {
+        public DateTime Date { get; set; }
+        public int Number { get; set; }
+    }
+
 }

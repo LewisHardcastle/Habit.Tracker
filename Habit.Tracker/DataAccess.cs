@@ -38,7 +38,8 @@ namespace Habit.Tracker
             string sql = "CREATE TABLE IF NOT EXISTS Habits (" +
                          "Id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                          "Name TEXT NOT NULL, " +
-                         "Occurrence INTEGER NOT NULL)";
+                         "Date TEXT NOT NULL, " +
+                         "Number INT NOT NULL )";
 
             try
             {
@@ -61,7 +62,7 @@ namespace Habit.Tracker
 
         public void InsertHabit(HabitModel habit)
         {
-            string sql = "INSERT INTO Habits (Name, Occurrence) VALUES (@Name, @Occurrence)";
+            string sql = "INSERT INTO Habits (Name, Date, Number) VALUES (@Name, @Date, @Number)";
             try
             {
                 using (var con = new SqliteConnection(_connectionString))
@@ -70,7 +71,8 @@ namespace Habit.Tracker
                     using (var cmd = new SqliteCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@Name", habit.Name);
-                        cmd.Parameters.AddWithValue("@Occurrence", habit.Occurrence);
+                        cmd.Parameters.AddWithValue("@Date", habit.Occurrence.Date);
+                        cmd.Parameters.AddWithValue("@Number", habit.Occurrence.Number);
                         cmd.ExecuteNonQuery();
                     }
                 }
@@ -100,7 +102,11 @@ namespace Habit.Tracker
                             {
                                 Id = reader.GetInt32(reader.GetOrdinal("Id")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
-                                Occurrence = reader.GetInt32(reader.GetOrdinal("Occurrence"))
+                                Occurrence = new Occurrence
+                                {
+                                    Date = reader.GetDateTime(reader.GetOrdinal("Date")),
+                                    Number = reader.GetInt32(reader.GetOrdinal("Number"))
+                                }
                             };
 
                             habits.Add(habit);
@@ -119,7 +125,7 @@ namespace Habit.Tracker
         // Laeve a message for when user inputs a habit that does not exist
         public void UpdateHabitOccurrence(string habitName, int newHabitOccurenceNumber)
         {
-            string sql = "UPDATE Habits SET Occurrence = @Occurrence WHERE LOWER(name) = LOWER(@Name)";
+            string sql = "UPDATE Habits SET Number = @Number WHERE LOWER(name) = LOWER(@Name)";
 
             try
             {
@@ -129,7 +135,7 @@ namespace Habit.Tracker
                     using (var cmd = new SqliteCommand(sql, con))
                     {
                         cmd.Parameters.AddWithValue("@Name", habitName);
-                        cmd.Parameters.AddWithValue("@Occurrence", newHabitOccurenceNumber);
+                        cmd.Parameters.AddWithValue("@Number", newHabitOccurenceNumber);
                         cmd.ExecuteNonQuery();
                     }
                     Console.WriteLine($"{habitName} has been updated");
