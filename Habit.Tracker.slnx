@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="Habit.Tracker.Test/Habit.Tracker.Test.csproj" Id="d0f62fc2-a5af-46bc-b2d7-b9c1aaa6853b" />
   <Project Path="Habit.Tracker/Habit.Tracker.csproj" />
 </Solution>
